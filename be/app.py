@@ -163,8 +163,11 @@ def train_model():
             return jsonify({'error': 'Not enough data. Capture at least 300 images'}), 400
         print("hello")
         # train_classifier(username)
-        collection.delete_many({})
+        # collection.delete_many({})
         impKnowEncode , cn = train_classifier(username)
+
+        print(impKnowEncode)
+        print(cn)
 
 
         for a,b in zip(impKnowEncode, cn):
@@ -188,7 +191,7 @@ def train_model():
 
         return jsonify({'message': 'Model trained successfully'}), 200
     except Exception as e:
-        return jsonify({'message': 'Model trained successfully'}), 200
+        return jsonify({'message': e}), 500
 
 @app.route('/geocode-address')
 def geocode_address():
@@ -221,6 +224,66 @@ def reverse_geocode():
 @app.route('/tryy', methods=['GET'])
 def tryy():
     return jsonify({'message': 'hi'}), 200
+
+from PIL import Image
+import io
+import base64
+@app.route('/recognize', methods=['POST'])
+def recognize():
+    try :
+        global impKnowEncode
+        global cn
+
+        # for a,b in zip(impKnowEncode, cn):
+                
+        #         print("hi")
+
+        #         req = {
+        #             "name": b ,
+        #             "encode": a.tolist()
+
+        #         }
+
+        data = request.get_json()
+        if not data or "image" not in data:
+            return jsonify({"error": "Missing image data"}), 400
+        
+        image_data = base64.b64decode(data["image"])
+        image = Image.open(io.BytesIO(image_data)).convert("RGB")
+        image_np = np.array(image)
+
+        # face_locations = face_recognition.face_locations(image_np)
+        encodings = face_recognition.face_encodings(image_np)
+
+        # for e, name in zip(impKnowEncode, cn):
+        #         match_name = "Unknown"
+        #         min_distance = 1.0  # default large distance
+
+        #         for known in known_encodings:
+        #             dist = face_recognition.face_distance([known["encoding"]], face_encoding)[0]
+        #             if dist < 0.6 and dist < min_distance:
+        #                 min_distance = dist
+        #                 match_name = known["name"]
+        encoding = encodings[0]  # Using the first detected face
+        distances = face_recognition.face_distance(impKnowEncode, encoding)
+        best_match_index = np.argmin(distances)
+        if distances[best_match_index] < 0.6:  # You can adjust the threshold
+                name = cn[best_match_index]
+        else:
+                name = "Unknown"
+        print(name)
+        return jsonify({
+                "name": name
+            })
+    except Exception as e:
+        # Handle any unexpected errors
+        return jsonify({"error": str(e)}), 500
+        
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
