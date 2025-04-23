@@ -11,7 +11,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from datetime import datetime
-
+from pymongo import MongoClient
+import numpy as np
 
 
 impKnowEncode = []
@@ -19,6 +20,10 @@ cn = []
 geolocator = Nominatim(user_agent="my_geocoder")
 app = Flask(__name__)
 CORS(app)
+client = MongoClient("mongodb+srv://abcd:1234@cluster0.2kso0zl.mongodb.net/")
+db = client["encode"]
+collection = db["encode"]
+
 
 # def get_location():
 #     geolocator = Nominatim(user_agent="my_app")
@@ -144,6 +149,7 @@ def train_model():
     global cn
    
     try:
+     
         with open('data.json', 'r') as file:
             data = json.load(file)
             last_entry = data[-1]
@@ -157,8 +163,26 @@ def train_model():
             return jsonify({'error': 'Not enough data. Capture at least 300 images'}), 400
         print("hello")
         # train_classifier(username)
+        collection.delete_many({})
         impKnowEncode , cn = train_classifier(username)
-        print("hi")
+
+
+        for a,b in zip(impKnowEncode, cn):
+            print("hi")
+
+            req = {
+                "name": b ,
+                "encode": a.tolist()
+
+            }
+            # print("a", a)
+
+            # Insert the data into MongoDB
+            collection.insert_one(req)
+
+        # print("hi")
+
+
 
         print("required encoing                    ", impKnowEncode)
 
