@@ -1,0 +1,24 @@
+INFO:root:Starting face recognition...
+DEBUG:urllib3.util.retry:Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.util.retry:Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+DEBUG:geopy:Nominatim.reverse: https://nominatim.openstreetmap.org/reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+DEBUG:urllib3.util.retry:Incremented Retry for (url='/reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+WARNING:urllib3.connectionpool:Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001A4F97B86D0>, 'Connection to nominatim.openstreetmap.org timed out. (connect timeout=1)')': /reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (2): nominatim.openstreetmap.org:443
+DEBUG:urllib3.util.retry:Incremented Retry for (url='/reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+WARNING:urllib3.connectionpool:Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001A4F97B88E0>, 'Connection to nominatim.openstreetmap.org timed out. (connect timeout=1)')': /reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (3): nominatim.openstreetmap.org:443
+INFO:werkzeug:127.0.0.1 - - [16/Mar/2024 23:19:21] "[35m[1mPOST /face-recognition HTTP/1.1[0m" 500 -
+INFO:root:Starting face recognition...
+DEBUG:urllib3.util.retry:Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+DEBUG:urllib3.util.retry:Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+DEBUG:geopy:Nominatim.reverse: https://nominatim.openstreetmap.org/reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nominatim.openstreetmap.org:443
+DEBUG:urllib3.util.retry:Incremented Retry for (url='/reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1'): Retry(total=1, connect=None, read=None, redirect=None, status=None)
+WARNING:urllib3.connectionpool:Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000022F8E2AAE60>, 'Connection to nominatim.openstreetmap.org timed out. (connect timeout=1)')': /reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (2): nominatim.openstreetmap.org:443
+DEBUG:urllib3.util.retry:Incremented Retry for (url='/reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1'): Retry(total=0, connect=None, read=None, redirect=None, status=None)
+WARNING:urllib3.connectionpool:Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000022F8E2ABBE0>, 'Connection to nominatim.openstreetmap.org timed out. (connect timeout=1)')': /reverse?lat=19.076&lon=72.8777&format=json&addressdetails=1
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (3): nominatim.openstreetmap.org:443
+INFO:werkzeug:127.0.0.1 - - [16/Mar/2024 23:19:49] "[35m[1mPOST /face-recognition HTTP/1.1[0m" 500 -
